@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORVIX — Enter the Universe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ORVIX v5 — THE DEFINITIVE LIVING CREATOR UNIVERSE
+   Boot → Enter → Create → Transcend
+═══════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#030305;--abyss:#06060c;--deep:#09091a;
+  --chamber:#0e0e1c;--shell:#131322;--graph:#1c1c2e;
+  --iron:#28283c;--steel:#383852;--fog:#545470;
+  --mist:#70708a;--silver:#9090b0;--ghost:#b8b8d0;
+  --ivory:#e4e0d4;
+  --gold:#c29a40;--gold-l:#dab050;--gold-p:#f0c860;
+  --blood:#aa1828;--ember:#cc3010;--coral:#cc3838;
+  --jade:#146040;--jade-l:#1a8050;
+  --ser:'Cormorant Garamond',Georgia,serif;
+  --san:'Syne',system-ui,sans-serif;
+  --mon:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:var(--san);background:var(--void);color:var(--ivory);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;
+  min-height:100vh;
+}
+
+/* ── CURSOR ─────────────────────────────── */
+#cur,#cur-r,#cur-glow{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cur{width:7px;height:7px;background:var(--gold);border-radius:50%;mix-blend-mode:screen;transition:width.12s,height.12s,background.12s,border-radius.15s;}
+#cur-r{width:26px;height:26px;border:1px solid rgba(194,154,64,.28);border-radius:50%;z-index:99997;transition:width.2s ease,height.2s ease,border-color.2s;}
+#cur-glow{width:120px;height:120px;background:radial-gradient(circle,rgba(194,154,64,.06),transparent 70%);border-radius:50%;z-index:99996;transition:width.4s,height.4s,opacity.3s;opacity:0;}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:12px;height:12px;background:var(--gold-l);}
+body:has(a:hover) #cur-r{width:40px;height:40px;border-color:rgba(194,154,64,.5);}
+body:has(a:hover) #cur-glow{opacity:1;}
+.cursor-drag #cur{width:18px;height:18px;border-radius:3px;background:var(--gold-p);}
+
+/* ── GRAIN ────────────────────────────── */
+#grain{position:fixed;inset:0;z-index:9990;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='.04'/%3E%3C/svg%3E");
+  background-size:200px;animation:grn 9s steps(8) infinite;opacity:.65;}
+@keyframes grn{0%,100%{background-position:0 0}33%{background-position:-55px 70px}66%{background-position:35px -45px}}
+
+/* ═══════════════════════════════════════
+   BOOT SEQUENCE (WOW MOMENT #1)
+═══════════════════════════════════════ */
+#boot{
+  position:fixed;inset:0;z-index:8000;background:var(--void);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 1.2s ease;
+}
+#boot.done{opacity:0;pointer-events:none;}
+
+.boot-logo{
+  font-family:var(--san);font-size:14px;font-weight:800;letter-spacing:.4em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:60px;
+  opacity:0;animation:blogo .6s ease .4s forwards;
+}
+@keyframes blogo{to{opacity:1}}
+
+.boot-lines{width:min(440px,90vw);margin-bottom:40px;}
+.boot-line{
+  font-family:var(--mon);font-size:10px;letter-spacing:.05em;
+  color:var(--fog);margin-bottom:5px;opacity:0;
+  animation:bline .3s ease forwards;
+  display:flex;align-items:center;gap:8px;
+}
+.bl-ok{color:var(--jade-l);font-weight:700;}
+.bl-spinner{width:8px;height:8px;border:1.5px solid rgba(194,154,64,.3);border-top-color:var(--gold);border-radius:50%;animation:bspin .5s linear infinite;flex-shrink:0;}
+@keyframes bspin{to{transform:rotate(360deg)}}
+.bl-check{color:var(--jade-l);flex-shrink:0;font-size:9px;}
+
+.boot-bar-wrap{width:min(440px,90vw);height:2px;background:rgba(255,255,255,.05);border-radius:1px;overflow:hidden;opacity:0;animation:blogo .4s ease .5s forwards;}
+.boot-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-p));border-radius:1px;transition:width .1s linear;}
+
+.boot-tagline{
+  font-family:var(--ser);font-size:20px;font-weight:300;
+  color:transparent;-webkit-text-stroke:1px rgba(194,154,64,.4);
+  margin-top:32px;letter-spacing:.02em;
+  opacity:0;animation:blogo .8s ease 3.5s forwards;
+}
+
+/* ═══════════════════════════════════════
+   WEBGL CANVAS
+═══════════════════════════════════════ */
+#wc{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;height:58px;
+  background:rgba(3,3,5,.8);backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid rgba(194,154,64,.05);
+  transform:translateY(-100%);
+  animation:navIn .7s cubic-bezier(.16,1,.3,1) 4.8s forwards;
+}
+@keyframes navIn{to{transform:translateY(0)}}
+.wm{font-family:var(--san);font-size:12px;font-weight:800;letter-spacing:.3em;color:var(--gold);text-decoration:none;text-transform:uppercase;}
+.npills{display:flex;gap:3px;position:absolute;left:50%;transform:translateX(-50%);}
+.np{padding:5px 15px;border-radius:100px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fog);text-decoration:none;cursor:pointer;transition:all.2s;border:1px solid transparent;}
+.np:hover{color:var(--ivory);border-color:rgba(255,255,255,.06);}
+.np.on{color:var(--gold);border-color:rgba(194,154,64,.2);background:rgba(194,154,64,.06);}
+.nright{display:flex;gap:8px;align-items:center;}
+.live-pill{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.12);margin-right:4px;}
+.ld{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:ldp 1.3s ease-in-out infinite;}
+@keyframes ldp{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+.live-txt{font-family:var(--mon);font-size:9px;color:rgba(74,222,128,.75);letter-spacing:.06em;}
+.live-num{font-family:var(--mon);font-size:9px;font-weight:700;color:#4ade80;}
+.btn-nav-line{padding:7px 17px;border-radius:3px;background:transparent;border:1px solid rgba(255,255,255,.07);color:var(--mist);font-family:var(--san);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all.2s;text-decoration:none;}
+.btn-nav-line:hover{border-color:rgba(194,154,64,.3);color:var(--gold);}
+.btn-enter{padding:8px 21px;border-radius:3px;background:var(--gold);border:none;color:var(--void);font-family:var(--san);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all.25s;text-decoration:none;position:relative;overflow:hidden;}
+.btn-enter::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);opacity:0;transition:opacity.3s;}
+.btn-enter:hover::before{opacity:1;}
+.btn-enter:hover{background:var(--gold-l);transform:translateY(-1px);box-shadow:0 12px 28px rgba(194,154,64,.3);}
+
+/* ═══════════════════════════════════════
+   SCENE 1 — UNIVERSE ENTRY
+═══════════════════════════════════════ */
+#s1{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;z-index:1;
+}
+.lb{position:absolute;left:0;right:0;height:58px;background:var(--void);z-index:8;pointer-events:none;}
+.lb-t{top:0}.lb-b{bottom:0}
+.scanl{position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.005) 2px,rgba(255,255,255,.005) 3px);z-index:2;}
+.slash{position:absolute;top:0;bottom:0;right:44%;width:1px;background:linear-gradient(180deg,transparent 5%,rgba(194,154,64,.1) 35%,rgba(194,154,64,.32) 50%,rgba(194,154,64,.1) 65%,transparent 95%);transform:rotate(5deg) scaleY(1.6);pointer-events:none;z-index:3;}
+
+.s1-wrap{
+  position:relative;z-index:5;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:68px;align-items:center;
+  max-width:1340px;width:100%;padding:0 48px;
+}
+
+/* Left */
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px;opacity:0;animation:fUp .7s ease 5s both;}
+.ew-l{width:26px;height:1px;background:var(--gold);}
+.ew-t{font-family:var(--mon);font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);}
+
+.live-ctr{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:4px 12px 4px 8px;border-radius:100px;
+  background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.12);
+  margin-bottom:26px;opacity:0;animation:fUp .7s ease 5.2s both;
+}
+.lc-l{font-family:var(--mon);font-size:9px;letter-spacing:.06em;color:rgba(74,222,128,.7);}
+.lc-n{font-family:var(--mon);font-size:10px;font-weight:700;color:#4ade80;}
+
+h1.s1h{
+  font-family:var(--ser);
+  font-size:clamp(62px,7.5vw,108px);
+  font-weight:300;line-height:.87;letter-spacing:-.025em;
+  color:var(--ivory);opacity:0;animation:fUp .9s cubic-bezier(.16,1,.3,1) 5.3s both;
+}
+.h1-em{display:block;font-style:italic;color:transparent;-webkit-text-stroke:1.5px rgba(194,154,64,.6);}
+.h1-g{display:block;color:var(--gold);font-weight:400;}
+
+.s1-desc{margin:30px 0 46px;display:flex;gap:16px;align-items:flex-start;opacity:0;animation:fUp .7s ease 5.6s both;}
+.desc-bar{width:1px;height:76px;background:rgba(194,154,64,.16);flex-shrink:0;margin-top:3px;}
+.desc-t{font-size:14px;font-weight:400;color:var(--fog);line-height:1.8;max-width:360px;}
+
+.s1-ctas{display:flex;align-items:center;gap:16px;opacity:0;animation:fUp .7s ease 5.8s both;}
+.btn-big{display:inline-flex;align-items:center;gap:11px;padding:15px 34px;border-radius:3px;background:var(--gold);border:none;color:var(--void);font-family:var(--san);font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all.3s cubic-bezier(.16,1,.3,1);text-decoration:none;}
+.btn-big:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 18px 40px rgba(194,154,64,.32);}
+.btn-ghost-sm{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--steel);background:none;border:none;cursor:pointer;text-decoration:none;padding:14px 0;transition:color.2s;border-bottom:1px solid rgba(56,56,82,.3);}
+.btn-ghost-sm:hover{color:var(--ivory);}
+
+/* AI ambient pulse */
+.ai-ambient-wrap{
+  margin-top:24px;padding:10px 14px;
+  background:rgba(194,154,64,.03);border:1px solid rgba(194,154,64,.07);
+  border-radius:6px;display:flex;gap:10px;align-items:flex-start;
+  opacity:0;animation:fUp .7s ease 6.2s both;
+  max-width:440px;transition:border-color.3s;
+}
+.ai-ambient-wrap:hover{border-color:rgba(194,154,64,.15);}
+.ai-orb-sm{
+  width:16px;height:16px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blood),var(--ember));
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;flex-shrink:0;margin-top:2px;
+  animation:orbGlow 3s ease-in-out infinite;
+}
+@keyframes orbGlow{0%,100%{box-shadow:0 0 4px rgba(170,24,40,.3)}50%{box-shadow:0 0 14px rgba(170,24,40,.6)}}
+.ai-head-sm{font-family:var(--mon);font-size:8px;letter-spacing:.1em;color:var(--blood);margin-bottom:4px;text-transform:uppercase;}
+.ai-txt-sm{font-size:11px;color:var(--silver);line-height:1.5;transition:opacity.3s;}
+
+@keyframes fUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Right — SPATIAL PANELS */
+.spatial{position:relative;width:100%;height:500px;}
+.fp{
+  position:absolute;
+  background:rgba(9,9,26,.94);border:1px solid rgba(194,154,64,.07);
+  border-radius:11px;backdrop-filter:blur(18px);
+  box-shadow:0 20px 56px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.02);
+  cursor:grab;user-select:none;
+  transition:box-shadow.2s,transform.08s;
+  opacity:0;
+}
+.fp.vis{opacity:1;transition:box-shadow.2s,transform.08s,opacity.6s;}
+.fp:hover{box-shadow:0 28px 72px rgba(0,0,0,.65),0 0 0 1px rgba(194,154,64,.11);}
+.fp.dragging{cursor:grabbing;box-shadow:0 44px 90px rgba(0,0,0,.8),0 0 0 1px rgba(194,154,64,.18);transform:scale(1.008);z-index:50!important;}
+
+.fp-bar{padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:7px;cursor:inherit;}
+.fp-dots{display:flex;gap:4px;}
+.fp-dot{width:7px;height:7px;border-radius:50%;}
+.fp-t{font-family:var(--mon);font-size:8px;letter-spacing:.14em;color:var(--fog);text-transform:uppercase;flex:1;margin-left:3px;}
+.fp-body{padding:13px;}
+
+/* Panel sizes & positions */
+#p-main{width:370px;top:15px;left:0;z-index:3;}
+#p-ai{width:234px;top:0;right:0;z-index:2;}
+#p-trend{width:208px;bottom:28px;right:18px;z-index:2;}
+#p-notif{width:272px;bottom:8px;left:14px;z-index:4;}
+
+/* Main panel content */
+.mets{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:11px;}
+.met{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:5px;padding:9px 10px;transition:border-color.2s;}
+.met:hover{border-color:rgba(194,154,64,.14);}
+.ml{font-family:var(--mon);font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog);margin-bottom:4px;}
+.mv{font-family:var(--ser);font-size:19px;font-weight:400;color:var(--ivory);line-height:1;}
+.mc{font-family:var(--mon);font-size:7px;color:#4ade80;margin-top:2px;}
+
+.rs{background:rgba(194,154,64,.04);border:1px solid rgba(194,154,64,.1);border-radius:5px;padding:9px 11px;margin-bottom:9px;}
+.rs-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.rs-lb{font-family:var(--mon);font-size:7px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);}
+.rs-pc{font-family:var(--mon);font-size:9px;color:var(--gold);font-weight:600;}
+.rs-bar{height:2px;background:rgba(194,154,64,.12);border-radius:1px;margin-bottom:5px;overflow:hidden;}
+.rs-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--gold),var(--gold-p));}
+.rs-nm{font-size:10px;color:var(--silver);font-weight:600;}
+.rs-mt{font-family:var(--mon);font-size:7px;color:var(--fog);margin-top:2px;}
+
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.thumb{border-radius:4px;aspect-ratio:9/16;border:1px solid rgba(255,255,255,.04);position:relative;overflow:hidden;cursor:pointer;transition:all.2s;}
+.thumb:hover{border-color:rgba(194,154,64,.22);transform:scale(1.05);}
+.th-bg{width:100%;height:100%;}
+.th-ov{position:absolute;bottom:0;left:0;right:0;padding:3px;background:linear-gradient(transparent,rgba(0,0,0,.9));}
+.th-sc{font-family:var(--mon);font-size:7px;font-weight:700;padding:1px 4px;border-radius:2px;background:rgba(170,24,40,.88);color:#fff;display:inline-block;}
+
+/* AI panel content */
+.ai-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.ai-orb{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--blood),var(--ember));display:flex;align-items:center;justify-content:center;animation:orbGlow 3s ease-in-out infinite;flex-shrink:0;}
+.ai-st{font-family:var(--mon);font-size:8px;letter-spacing:.1em;color:var(--blood);}
+.ai-item{display:flex;gap:7px;padding:6px 8px;background:rgba(255,255,255,.03);border-radius:4px;margin-bottom:4px;cursor:pointer;transition:background.15s;border:1px solid transparent;}
+.ai-item:hover{background:rgba(255,255,255,.06);border-color:rgba(194,154,64,.09);}
+.ai-pip{width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:4px;flex-shrink:0;}
+.ai-it{font-size:10px;color:var(--silver);line-height:1.5;}
+.ai-type{display:flex;align-items:center;gap:5px;padding:6px 8px;background:rgba(255,255,255,.02);border-radius:4px;font-size:9px;color:var(--fog);}
+.t-dots span{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--gold);animation:tdot 1.4s ease-in-out infinite;}
+.t-dots span:nth-child(2){animation-delay:.2s}.t-dots span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+/* Trend panel */
+.tr-row{display:flex;align-items:center;gap:7px;padding:5px 6px;border-radius:4px;background:rgba(255,255,255,.02);margin-bottom:4px;transition:background.15s;cursor:pointer;}
+.tr-row:hover{background:rgba(255,255,255,.05);}
+.tr-n{font-family:var(--mon);font-size:8px;color:var(--fog);width:12px;}
+.tr-i{flex:1;min-width:0;}
+.tr-nm{font-size:10px;color:var(--ivory);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tr-v{font-family:var(--mon);font-size:7px;color:var(--fog);}
+.tr-b{font-family:var(--mon);font-size:6px;font-weight:700;padding:1px 4px;border-radius:2px;background:rgba(170,24,40,.18);color:var(--coral);flex-shrink:0;}
+
+/* Notif panel */
+.ni{display:flex;gap:9px;padding:8px 9px;border-radius:5px;background:rgba(255,255,255,.03);margin-bottom:4px;border:1px solid rgba(255,255,255,.04);animation:nslide .4s cubic-bezier(.16,1,.3,1);}
+@keyframes nslide{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.ni-ic{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+.ni-ti{font-size:10px;color:var(--ivory);font-weight:600;margin-bottom:1px;}
+.ni-bo{font-size:9px;color:var(--fog);line-height:1.4;}
+.ni-tm{font-family:var(--mon);font-size:7px;color:var(--iron);margin-top:2px;}
+
+/* Stats strip */
+.s1-stats{position:relative;z-index:5;width:100%;border-top:1px solid rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.03);display:flex;opacity:0;animation:fUp .7s ease 6.4s both;}
+.ss{flex:1;padding:22px 0;text-align:center;border-right:1px solid rgba(255,255,255,.03);}
+.ss:last-child{border-right:none;}
+.ss-v{font-family:var(--ser);font-size:32px;font-weight:300;color:var(--ivory);line-height:1;margin-bottom:5px;}
+.ss-v em{color:var(--gold);font-style:italic;}
+.ss-l{font-family:var(--mon);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--fog);}
+
+/* ── WOW MOMENT: Live AI Generation Section ─── */
+#s-wow{
+  position:relative;z-index:1;
+  padding:0;background:var(--abyss);
+  overflow:hidden;
+}
+.wow-inner{
+  max-width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:600px;
+}
+.wow-left{
+  padding:80px 60px;border-right:1px solid rgba(255,255,255,.04);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.wow-right{
+  background:rgba(6,6,12,.5);
+  display:flex;flex-direction:column;
+}
+
+.wow-title{font-family:var(--ser);font-size:clamp(42px,4.5vw,68px);font-weight:300;line-height:.92;letter-spacing:-.02em;color:var(--ivory);margin-bottom:20px;}
+.wow-title em{font-style:italic;color:var(--gold);}
+.wow-sub{font-size:14px;color:var(--fog);line-height:1.8;max-width:400px;margin-bottom:36px;}
+
+/* LIVE GENERATION TERMINAL */
+.gen-terminal{
+  flex:1;padding:24px;font-family:var(--mon);
+  overflow:hidden;position:relative;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.003) 0,rgba(255,255,255,.003) 1px,transparent 1px,transparent 24px);
+}
+
+.term-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.th-brand{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--gold);}
+.th-status{display:flex;align-items:center;gap:5px;font-size:8px;color:#4ade80;letter-spacing:.08em;}
+
+.term-prompt{
+  font-size:12px;color:var(--gold);margin-bottom:16px;
+  display:flex;gap:8px;align-items:flex-start;
+}
+.term-prompt::before{content:'>';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+.term-output{display:flex;flex-direction:column;gap:4px;}
+.to-line{font-size:10px;line-height:1.6;color:var(--fog);opacity:0;animation:toLine .3s ease forwards;}
+@keyframes toLine{to{opacity:1}}
+.to-line.green{color:#4ade80;}
+.to-line.gold{color:var(--gold);}
+.to-line.white{color:var(--ghost);}
+.to-line.crimson{color:var(--coral);}
+
+/* Score reveal */
+.score-reveal{
+  margin-top:20px;padding:14px;
+  background:rgba(194,154,64,.05);border:1px solid rgba(194,154,64,.15);
+  border-radius:6px;opacity:0;
+}
+.score-reveal.vis{opacity:1;animation:fUp .5s ease forwards;}
+.sr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sr-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--fog);}
+.sr-score{font-family:var(--ser);font-size:36px;font-weight:400;color:var(--gold);line-height:1;}
+.sr-bars{display:flex;flex-direction:column;gap:5px;}
+.sr-bar-row{display:flex;align-items:center;gap:8px;}
+.sr-bar-label{font-size:8px;color:var(--fog);width:70px;flex-shrink:0;}
+.sr-bar-track{flex:1;height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
+.sr-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold-p));width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.sr-bar-val{font-family:var(--mon);font-size:8px;color:var(--gold);width:28px;text-align:right;flex-shrink:0;}
+
+/* Try it prompt */
+.gen-prompt-row{
+  padding:16px 24px;border-top:1px solid rgba(255,255,255,.04);
+  display:flex;gap:10px;align-items:center;
+  background:rgba(0,0,0,.2);
+}
+.gen-input{
+  flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:4px;padding:10px 14px;color:var(--ivory);
+  font-family:var(--mon);font-size:11px;outline:none;transition:border-color.2s;
+}
+.gen-input::placeholder{color:var(--fog);}
+.gen-input:focus{border-color:rgba(194,154,64,.3);}
+.gen-btn{
+  padding:10px 20px;background:var(--gold);border:none;border-radius:3px;
+  color:var(--void);font-family:var(--san);font-size:10px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all.2s;
+  white-space:nowrap;
+}
+.gen-btn:hover{background:var(--gold-l);}
+.gen-btn:disabled{opacity:.4;cursor:not-allowed;}
+.gen-btn.loading{animation:pulsate .8s ease-in-out infinite;}
+@keyframes pulsate{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* ════════════════════════════
+   SCENES 2-6 (compact)
+════════════════════════════ */
+.scene{position:relative;z-index:1;padding:120px 48px;overflow:hidden;}
+.scene-dark{background:var(--abyss);}
+.inner{max-width:1340px;margin:0 auto;}
+
+.s-tag{font-family:var(--mon);font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.st-l{width:26px;height:1px;background:var(--gold);}
+
+.sh2{font-family:var(--ser);font-size:clamp(42px,5vw,72px);font-weight:300;line-height:.92;letter-spacing:-.02em;color:var(--ivory);}
+.sh2 em{font-style:italic;color:var(--gold);}
+
+/* Creator feed */
+.feed-wrap{margin-top:48px;}
+.feed-lb{display:flex;align-items:center;gap:8px;font-family:var(--mon);font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);margin-bottom:12px;}
+.feed{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
+.feed::-webkit-scrollbar{display:none;}
+.cc{flex-shrink:0;width:170px;background:var(--deep);border:1px solid rgba(255,255,255,.05);border-radius:9px;overflow:hidden;cursor:pointer;transition:all.25s;}
+.cc:hover{border-color:rgba(194,154,64,.2);transform:translateY(-3px);}
+.cc-img{height:110px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.cc-badge{position:absolute;top:6px;left:6px;display:flex;align-items:center;gap:3px;background:rgba(170,24,40,.85);border-radius:3px;padding:2px 6px;font-family:var(--mon);font-size:7px;font-weight:700;color:#fff;}
+.cc-vs{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border-radius:2px;padding:1px 5px;font-family:var(--mon);font-size:7px;font-weight:700;color:var(--gold);}
+.cc-b{padding:9px 10px;}
+.cc-n{font-size:11px;font-weight:700;color:var(--ivory);margin-bottom:2px;}
+.cc-v{font-family:var(--mon);font-size:8px;color:var(--fog);}
+.cc-bar{height:2px;background:rgba(255,255,255,.05);border-radius:1px;margin-top:7px;overflow:hidden;}
+.cc-bar-fill{height:100%;border-radius:1px;background:linear-gradient(90deg,var(--gold),var(--gold-l));}
+
+/* Feature asymmetric grid */
+.feats{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.04);border-radius:13px;overflow:hidden;margin-top:52px;}
+.fb{background:var(--deep);padding:34px 30px;position:relative;overflow:hidden;transition:background.3s;cursor:pointer;}
+.fb:hover{background:var(--chamber);}
+.fb::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(194,154,64,.3),transparent);opacity:0;transition:opacity.3s;}
+.fb:hover::before{opacity:1;}
+.fb-w2{grid-column:span 2;}
+.fb-tag{font-family:var(--mon);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(194,154,64,.35);margin-bottom:18px;}
+.fb-title{font-family:var(--ser);font-size:22px;font-weight:400;color:var(--ivory);margin-bottom:9px;line-height:1.1;}
+.fb-desc{font-size:12px;color:var(--fog);line-height:1.7;max-width:340px;}
+.fb-stat{margin-top:18px;font-family:var(--ser);font-size:36px;font-weight:300;color:var(--gold);}
+.fb-stat span{font-size:13px;font-family:var(--san);color:var(--fog);font-weight:400;vertical-align:super;}
+
+/* Creator ranks */
+.ranks{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-top:56px;}
+.rank{background:var(--deep);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:22px 18px;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:all.3s;}
+.rank:hover{border-color:rgba(194,154,64,.2);transform:translateY(-3px);}
+.rank-glow{position:absolute;inset:0;opacity:0;transition:opacity.3s;background:radial-gradient(circle at 50% 100%,rgba(194,154,64,.06),transparent 70%);}
+.rank:hover .rank-glow{opacity:1;}
+.rb{display:inline-block;padding:2px 9px;border-radius:3px;font-family:var(--mon);font-size:7px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.rb-seed{background:rgba(255,255,255,.05);color:var(--silver);}
+.rb-cr{background:rgba(194,154,64,.1);color:var(--gold);}
+.rb-ar{background:rgba(170,24,40,.1);color:var(--coral);}
+.rb-or{background:rgba(20,96,64,.15);color:var(--jade-l);}
+.rb-leg{background:linear-gradient(135deg,rgba(194,154,64,.14),rgba(170,24,40,.1));color:var(--gold-p);border:1px solid rgba(194,154,64,.25);}
+.rank-icon{font-size:26px;margin-bottom:9px;display:block;}
+.rank-name{font-family:var(--ser);font-size:17px;font-weight:400;color:var(--ivory);margin-bottom:5px;}
+.rank-desc{font-size:11px;color:var(--fog);line-height:1.5;margin-bottom:12px;}
+.rank-req{font-family:var(--mon);font-size:8px;color:var(--iron);}
+
+/* Proof cards */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px;}
+.proof-card{background:var(--chamber);border:1px solid rgba(255,255,255,.05);border-radius:12px;overflow:hidden;transition:all.3s;cursor:pointer;}
+.proof-card:hover{border-color:rgba(194,154,64,.18);transform:translateY(-3px);}
+.pc-h{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:10px;align-items:center;}
+.pc-bef,.pc-aft{flex:1;text-align:center;}
+.pc-lbl{font-family:var(--mon);font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);margin-bottom:3px;}
+.pc-vb{font-family:var(--ser);font-size:20px;font-weight:300;color:var(--steel);}
+.pc-va{font-family:var(--ser);font-size:20px;font-weight:400;color:var(--gold);}
+.pc-arr{font-size:13px;color:var(--gold);opacity:.5;}
+.pc-gr{padding:0 20px;margin:12px 0;}
+.pc-gr-bar{height:3px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden;}
+.pc-gr-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--jade),var(--jade-l));}
+.pc-q{padding:0 20px 18px;font-family:var(--ser);font-size:14px;font-style:italic;color:var(--silver);line-height:1.7;}
+.pc-au{padding:13px 20px;border-top:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:9px;}
+.pc-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-family:var(--san);flex-shrink:0;}
+.pc-nm{font-size:12px;font-weight:600;color:var(--ivory);}
+.pc-hd{font-family:var(--mon);font-size:9px;color:var(--fog);margin-top:1px;}
+
+/* Plans */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(194,154,64,.07);border-radius:13px;overflow:hidden;box-shadow:0 72px 140px rgba(0,0,0,.4);}
+.plan{background:var(--deep);padding:42px 32px;border-right:1px solid rgba(255,255,255,.04);position:relative;transition:background.3s;}
+.plan:last-child{border-right:none;}
+.plan:hover{background:var(--chamber);}
+.plan-star{background:linear-gradient(160deg,rgba(194,154,64,.07),var(--deep));}
+.plan-star::before{content:'MOST POPULAR';position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--void);font-family:var(--mon);font-size:7px;font-weight:800;letter-spacing:.2em;padding:5px 15px;border-radius:0 0 6px 6px;}
+.plan-tier{font-family:var(--mon);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--fog);margin-bottom:16px;}
+.plan-price{font-family:var(--ser);font-size:64px;font-weight:300;color:var(--ivory);line-height:1;display:flex;align-items:flex-start;gap:3px;margin-bottom:4px;}
+.plan-price sup{font-size:22px;margin-top:12px;font-family:var(--san);font-weight:300;color:var(--fog);}
+.plan-price sub{font-size:13px;align-self:flex-end;margin-bottom:8px;font-family:var(--san);color:var(--fog);}
+.plan-note{font-family:var(--mon);font-size:9px;color:var(--fog);margin-bottom:4px;}
+.plan-badge{display:inline-block;padding:3px 8px;border-radius:3px;font-family:var(--mon);font-size:8px;font-weight:700;letter-spacing:.06em;margin-bottom:20px;}
+.pb-f{background:rgba(255,255,255,.04);color:var(--silver);}
+.pb-p{background:rgba(194,154,64,.1);color:var(--gold);}
+.pb-e{background:rgba(170,24,40,.1);color:var(--coral);}
+.plan-hook{font-size:12px;color:var(--silver);line-height:1.6;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.05);}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:28px;}
+.pf{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--silver);}
+.pfc{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.pfc-on{background:rgba(194,154,64,.12);}
+.pfc-on::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);display:block;}
+.pfc-off{background:rgba(255,255,255,.04);}
+.pfc-off::after{content:'';width:4px;height:4px;border-radius:50%;background:rgba(160,160,192,.2);display:block;}
+.plan-btn{width:100%;padding:12px;border-radius:4px;font-family:var(--san);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all.25s;}
+.pb-line{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--silver);}
+.pb-line:hover{border-color:rgba(194,154,64,.3);color:var(--gold);}
+.pb-fill{background:var(--gold);border:none;color:var(--void);}
+.pb-fill:hover{background:var(--gold-l);transform:translateY(-1px);box-shadow:0 10px 28px rgba(194,154,64,.26);}
+
+/* CTA */
+.cta-sec{position:relative;z-index:1;padding:140px 48px;overflow:hidden;text-align:center;}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(170,24,40,.05),transparent 70%);pointer-events:none;}
+.cta-line{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:72px;background:linear-gradient(180deg,rgba(194,154,64,.3),transparent);}
+.cta-inner{position:relative;max-width:740px;margin:0 auto;}
+.cta-tag{font-family:var(--mon);font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--fog);margin-bottom:16px;}
+.cta-h2{font-family:var(--ser);font-size:clamp(54px,8vw,100px);font-weight:300;line-height:.88;letter-spacing:-.03em;color:var(--ivory);margin-bottom:26px;}
+.cta-h2 em{font-style:italic;color:var(--gold);}
+.cta-body{font-size:14px;color:var(--fog);line-height:1.75;max-width:440px;margin:0 auto 44px;}
+.cta-form{display:flex;gap:10px;max-width:400px;margin:0 auto 13px;}
+.cta-inp{flex:1;padding:14px 17px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:3px;color:var(--ivory);font-family:var(--san);font-size:13px;outline:none;transition:border-color.2s;}
+.cta-inp::placeholder{color:var(--fog);}
+.cta-inp:focus{border-color:rgba(194,154,64,.3);}
+.cta-note{font-family:var(--mon);font-size:8px;letter-spacing:.07em;color:rgba(84,84,112,.45);}
+
+/* Footer */
+footer{position:relative;z-index:1;padding:52px 48px 34px;border-top:1px solid rgba(255,255,255,.04);}
+.ft-g{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;max-width:1340px;margin:0 auto 40px;}
+.ft-br{font-family:var(--san);font-size:11px;font-weight:800;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:11px;display:block;}
+.ft-de{font-size:12px;color:var(--fog);line-height:1.7;max-width:220px;}
+.ft-ct{font-family:var(--mon);font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:var(--fog);margin-bottom:13px;}
+.ft-li{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.ft-li a{font-size:12px;color:var(--fog);text-decoration:none;transition:color.2s;}
+.ft-li a:hover{color:var(--ivory);}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid rgba(255,255,255,.04);max-width:1340px;margin:0 auto;}
+.ft-cp{font-family:var(--mon);font-size:8px;letter-spacing:.05em;color:rgba(84,84,112,.35);}
+.ft-tg{font-family:var(--mon);font-size:8px;color:rgba(84,84,112,.27);letter-spacing:.08em;}
+
+/* Waveform */
+#wfbar{position:fixed;bottom:0;left:0;right:0;height:3px;display:flex;align-items:flex-end;z-index:500;pointer-events:none;opacity:.45;}
+.wfb{flex:1;border-radius:1px 1px 0 0;background:linear-gradient(180deg,var(--gold),rgba(194,154,64,.3));transition:height.08s ease;}
+
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity.8s cubic-bezier(.16,1,.3,1),transform.8s cubic-bezier(.16,1,.3,1);}
+.rv.vis{opacity:1;transform:translateY(0);}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
+
+/* responsive */
+@media(max-width:1100px){
+  .s1-wrap,.wow-inner,.proof-grid{grid-template-columns:1fr;}
+  .spatial,.s1-right,#p-main,#p-ai,#p-trend,#p-notif{display:none;}
+  .feats,.ranks,.plans-grid{grid-template-columns:1fr;}
+  .fb-w2{grid-column:span 1;}
+  .ft-g{grid-template-columns:1fr 1fr;gap:28px;}
+  .scene,.cta-sec{padding:80px 24px;}
+  #s-wow .wow-left{padding:50px 28px;}
+  footer{padding:40px 24px 28px;}
+  #nav .npills{display:none;}
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cur"></div><div id="cur-r"></div><div id="cur-glow"></div>
+<div id="grain"></div>
+
+<!-- WebGL -->
+<canvas id="wc"></canvas>
+
+<!-- Waveform -->
+<div id="wfbar"></div>
+
+<!-- ═══════════ BOOT SEQUENCE ═══════════ -->
+<div id="boot">
+  <div class="boot-logo">ORVIX</div>
+  <div class="boot-lines" id="boot-lines"></div>
+  <div class="boot-bar-wrap"><div class="boot-bar-fill" id="bbar"></div></div>
+  <div class="boot-tagline">The Living Creator Universe</div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <a href="#" class="wm">ORVIX</a>
+  <div class="npills">
+    <a class="np on" href="#s2">Universe</a>
+    <a class="np" href="#s3">Studio</a>
+    <a class="np" href="#s4">Ranks</a>
+    <a class="np" href="#s5">Proof</a>
+    <a class="np" href="#s6">Pricing</a>
+  </div>
+  <div class="nright">
+    <div class="live-pill"><div class="ld"></div><span class="live-txt">Live —</span><span class="live-num" id="nav-cnt">14,847</span></div>
+    <a href="#" class="btn-nav-line">Sign in</a>
+    <a href="#cta" class="btn-enter">Enter Free</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════
+     SCENE 1 — UNIVERSE ENTRY
+═══════════════════════════════ -->
+<section id="s1">
+  <div class="lb lb-t"></div>
+  <div class="scanl"></div>
+  <div class="slash"></div>
+
+  <div class="s1-wrap">
+    <!-- Left -->
+    <div>
+      <div class="eyebrow">
+        <div class="ew-l"></div>
+        <span class="ew-t">Creator Operating System · Early Access</span>
+      </div>
+
+      <div class="live-ctr">
+        <div class="ld"></div>
+        <span class="lc-l">Online now —</span>
+        <span class="lc-n" id="hero-cnt">14,847</span>
+      </div>
+
+      <h1 class="s1h">
+        <span class="h1-em">You don't visit</span>
+        <span class="h1-em">ORVIX.</span>
+        <span class="h1-g">You enter it.</span>
+      </h1>
+
+      <div class="s1-desc">
+        <div class="desc-bar"></div>
+        <p class="desc-t">The first living creator OS — where AI scripting, video production, voice synthesis, and viral intelligence converge into one breathing, reactive workspace.</p>
+      </div>
+
+      <div class="s1-ctas">
+        <a href="#s-wow" class="btn-big">Begin Creating Free <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6.5 3L10 6l-3.5 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#s-wow" class="btn-ghost-sm">Watch it generate live</a>
+      </div>
+
+      <div class="ai-ambient-wrap">
+        <div class="ai-orb-sm">✦</div>
+        <div>
+          <div class="ai-head-sm">ORVIX AI — Live</div>
+          <div class="ai-txt-sm" id="ai-ambient-txt">Scanning trending hooks in your niche right now…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right — Floating panels -->
+    <div class="s1-right">
+      <div class="spatial">
+
+        <!-- Main panel -->
+        <div class="fp" id="p-main">
+          <div class="fp-bar">
+            <div class="fp-dots"><div class="fp-dot" style="background:#ff5f57"></div><div class="fp-dot" style="background:#febc2e"></div><div class="fp-dot" style="background:#28c840"></div></div>
+            <span class="fp-t">AI Studio — Command Center</span>
+            <div style="display:flex;align-items:center;gap:4px;"><div class="ld"></div><span style="font-family:var(--mon);font-size:7px;color:rgba(74,222,128,.7);">3 live</span></div>
+          </div>
+          <div class="fp-body">
+            <div class="mets">
+              <div class="met"><div class="ml">Views</div><div class="mv" id="m-views">3.1M</div><div class="mc">+41%</div></div>
+              <div class="met"><div class="ml">Viral</div><div class="mv">96.4</div><div class="mc">+8 pts</div></div>
+              <div class="met"><div class="ml">Published</div><div class="mv" id="m-pub">67</div><div class="mc">this month</div></div>
+            </div>
+            <div class="rs">
+              <div class="rs-h"><span class="rs-lb">Rendering Live</span><span class="rs-pc" id="rspct">73%</span></div>
+              <div class="rs-bar"><div class="rs-fill" id="rsfill" style="width:73%"></div></div>
+              <div class="rs-nm">5 AI Tools Replacing Your Entire Team</div>
+              <div class="rs-mt">HD · Voice clone · Auto captions · 5 platforms</div>
+            </div>
+            <div class="thumbs">
+              <div class="thumb"><div class="th-bg" style="background:linear-gradient(160deg,#1e0a10,#3c0a18)"></div><div class="th-ov"><div class="th-sc">97</div></div></div>
+              <div class="thumb"><div class="th-bg" style="background:linear-gradient(160deg,#0a0e1e,#0a1438)"></div><div class="th-ov"><div class="th-sc">94</div></div></div>
+              <div class="thumb"><div class="th-bg" style="background:linear-gradient(160deg,#0a1a0a,#0a2810)"></div><div class="th-ov"><div class="th-sc">91</div></div></div>
+              <div class="thumb"><div class="th-bg" style="background:linear-gradient(160deg,#1a0e0a,#280a00)"></div><div class="th-ov"><div class="th-sc">88</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI panel -->
+        <div class="fp" id="p-ai">
+          <div class="fp-bar"><div class="fp-dots"><div class="fp-dot" style="background:#ff5f57"></div><div class="fp-dot" style="background:#febc2e"></div><div class="fp-dot" style="background:#28c840"></div></div><span class="fp-t">AI Copilot</span></div>
+          <div class="fp-body">
+            <div class="ai-head"><div class="ai-orb" style="font-size:8px;">✦</div><span class="ai-st">Thinking…</span></div>
+            <div class="ai-item"><div class="ai-pip"></div><div class="ai-it">Your "AI tools" hooks 2.4× better — make 5 more</div></div>
+            <div class="ai-item"><div class="ai-pip"></div><div class="ai-it">Peak: 6:15 PM today · TikTok surge</div></div>
+            <div class="ai-type"><div class="t-dots"><span></span><span></span><span></span></div>&nbsp;Analyzing competitor gaps…</div>
+          </div>
+        </div>
+
+        <!-- Trend panel -->
+        <div class="fp" id="p-trend">
+          <div class="fp-bar"><div class="fp-dots"><div class="fp-dot" style="background:#ff5f57"></div><div class="fp-dot" style="background:#febc2e"></div><div class="fp-dot" style="background:#28c840"></div></div><span class="fp-t">Trending Live</span><div class="ld" style="margin-left:auto"></div></div>
+          <div class="fp-body" id="trend-body"></div>
+        </div>
+
+        <!-- Notif panel -->
+        <div class="fp" id="p-notif">
+          <div class="fp-bar"><div class="fp-dots"><div class="fp-dot" style="background:#ff5f57"></div><div class="fp-dot" style="background:#febc2e"></div><div class="fp-dot" style="background:#28c840"></div></div><span class="fp-t">Live Activity</span></div>
+          <div class="fp-body" id="notif-body"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="s1-stats">
+    <div class="ss"><div class="ss-v">2.4<em>B</em></div><div class="ss-l">Views Generated</div></div>
+    <div class="ss"><div class="ss-v" id="stat-cr">840<em>K</em></div><div class="ss-l">Creators Active</div></div>
+    <div class="ss"><div class="ss-v">14<em>M</em></div><div class="ss-l">Videos Published</div></div>
+    <div class="ss"><div class="ss-v">97<em>%</em></div><div class="ss-l">Satisfaction Rate</div></div>
+  </div>
+
+  <div class="lb lb-b"></div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     WOW MOMENT — LIVE AI GENERATION
+═══════════════════════════════ -->
+<section id="s-wow">
+  <div class="wow-inner">
+    <div class="wow-left">
+      <div class="s-tag rv"><div class="st-l"></div>Live AI Engine</div>
+      <div class="wow-title rv rd1">Watch ORVIX<br>create a viral reel<br><em>in real-time.</em></div>
+      <p class="wow-sub rv rd2">Type any topic below and watch our AI write the script, analyze viral potential, predict reach, and queue the render — live, in front of you. No demo. No fake.</p>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;" class="rv rd3">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(194,154,64,.1);border:1px solid rgba(194,154,64,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mon);font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0;">1</div>
+          <div style="font-size:13px;color:var(--silver);">Type your topic — anything</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(194,154,64,.1);border:1px solid rgba(194,154,64,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mon);font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0;">2</div>
+          <div style="font-size:13px;color:var(--silver);">Claude AI writes your viral script live</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(194,154,64,.1);border:1px solid rgba(194,154,64,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mon);font-size:10px;color:var(--gold);font-weight:700;flex-shrink:0;">3</div>
+          <div style="font-size:13px;color:var(--silver);">Viral score + estimated reach predicted</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wow-right">
+      <!-- Terminal header -->
+      <div class="gen-terminal">
+        <div class="term-header">
+          <span class="th-brand">ORVIX AI ENGINE — LIVE</span>
+          <div class="th-status"><div class="ld"></div>Connected · Claude Sonnet</div>
+        </div>
+
+        <div class="term-prompt" id="term-prompt" style="display:none;"></div>
+
+        <div class="term-output" id="term-output">
+          <div class="to-line gold">// ORVIX AI Engine — Ready</div>
+          <div class="to-line">// Connected to Claude AI · Viral prediction active</div>
+          <div class="to-line">// Type a topic below to generate your viral script live</div>
+          <div class="to-line" style="margin-top:8px;color:var(--fog);">─────────────────────────────────</div>
+        </div>
+
+        <div class="score-reveal" id="score-reveal" style="display:none;">
+          <div class="sr-top">
+            <span class="sr-label">Viral Score Prediction</span>
+            <span class="sr-score" id="sr-score">—</span>
+          </div>
+          <div class="sr-bars">
+            <div class="sr-bar-row"><span class="sr-bar-label">Hook strength</span><div class="sr-bar-track"><div class="sr-bar-fill" id="bar-hook"></div></div><span class="sr-bar-val" id="val-hook">—</span></div>
+            <div class="sr-bar-row"><span class="sr-bar-label">Retention</span><div class="sr-bar-track"><div class="sr-bar-fill" id="bar-ret"></div></div><span class="sr-bar-val" id="val-ret">—</span></div>
+            <div class="sr-bar-row"><span class="sr-bar-label">Est. reach</span><div class="sr-bar-track"><div class="sr-bar-fill" id="bar-reach"></div></div><span class="sr-bar-val" id="val-reach">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input row -->
+      <div class="gen-prompt-row">
+        <input id="gen-inp" class="gen-input" placeholder="e.g. 5 AI tools replacing designers in 2025…" maxlength="200">
+        <button id="gen-btn" class="gen-btn" onclick="runGeneration()">Generate Live</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ SCENE 2 — ECOSYSTEM ═══════════ -->
+<section id="s2" class="scene scene-dark">
+  <div class="inner">
+    <div class="s-tag rv"><div class="st-l"></div>The Living Ecosystem</div>
+    <h2 class="sh2 rv rd1">One universe.<br><em>Every creator.</em><br>Infinite reach.</h2>
+
+    <div class="feed-wrap rv rd2">
+      <div class="feed-lb"><div class="ld"></div>Creators generating right now</div>
+      <div class="feed" id="creator-feed"></div>
+    </div>
+
+    <div class="feats rv rd1">
+      <div class="fb fb-w2"><div class="fb-tag">01 — Generation</div><div class="fb-title">AI Short Video Generator</div><div class="fb-desc">Type a prompt. Get a polished, viral-optimized reel with hooks, b-roll, captions, voice narration, and cinematic transitions — assembled in under 60 seconds.</div><div class="fb-stat">60<span>sec avg</span></div></div>
+      <div class="fb"><div class="fb-tag">02 — Voice</div><div class="fb-title">500+ AI Voices + Clone</div><div class="fb-desc">Clone your voice or choose from 500+ emotional profiles across 50 languages. Zero robotic artifacts.</div><div class="fb-stat">500<span>+</span></div></div>
+      <div class="fb"><div class="fb-tag">03 — Intelligence</div><div class="fb-title">Viral Prediction Engine</div><div class="fb-desc">Before you post, know your projected reach. AI scores every video for virality in real-time based on live trend data.</div></div>
+      <div class="fb fb-w2"><div class="fb-tag">04 — Automation</div><div class="fb-title">Full Creator Automation — 6 Platforms</div><div class="fb-desc">Set your content strategy once. ORVIX generates, renders, schedules, and publishes to TikTok, Instagram, YouTube, LinkedIn, X, and Facebook — automatically, every day.</div><div class="fb-stat">6<span>platforms</span></div></div>
+      <div class="fb"><div class="fb-tag">05 — Trends</div><div class="fb-title">Live Trend Scanner</div><div class="fb-desc">Real-time monitoring of viral topics across every platform. Know what's exploding before competitors see it.</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ SCENE 3 — CREATOR RANKS ═══════════ -->
+<section id="s4" class="scene">
+  <div class="inner">
+    <div class="s-tag rv"><div class="st-l"></div>Creator Identity System</div>
+    <h2 class="sh2 rv rd1">Rise through the<br><em>ORVIX ranks.</em></h2>
+    <p class="rv rd2" style="font-size:14px;color:var(--fog);line-height:1.8;max-width:520px;margin-top:14px;">ORVIX isn't just a tool. It's a universe you grow inside. Every video builds your rank, unlocks powers, and earns recognition.</p>
+
+    <div class="ranks">
+      <div class="rank rv"><div class="rank-glow"></div><div class="rb rb-seed">Seed</div><div class="rank-icon">⬡</div><div class="rank-name">Seed Creator</div><div class="rank-desc">Just entering the universe. The beginning of something extraordinary.</div><div class="rank-req">0 – 10 videos</div></div>
+      <div class="rank rv rd1"><div class="rank-glow"></div><div class="rb rb-cr">Creator</div><div class="rank-icon" style="filter:drop-shadow(0 0 7px rgba(194,154,64,.3))">◈</div><div class="rank-name">Creator</div><div class="rank-desc">Consistent. Building momentum. The platform is learning your style.</div><div class="rank-req">10 – 100 videos</div></div>
+      <div class="rank rv rd2"><div class="rank-glow"></div><div class="rb rb-ar">Architect</div><div class="rank-icon" style="filter:drop-shadow(0 0 9px rgba(170,24,40,.3))">◉</div><div class="rank-name">Architect</div><div class="rank-desc">Building a content empire. Viral scores consistently above 85.</div><div class="rank-req">100 – 500 videos</div></div>
+      <div class="rank rv rd3"><div class="rank-glow"></div><div class="rb rb-or">Oracle</div><div class="rank-icon" style="filter:drop-shadow(0 0 11px rgba(20,96,64,.4))">✦</div><div class="rank-name">Oracle</div><div class="rank-desc">Predicting trends before they happen. The platform consults you.</div><div class="rank-req">500 – 2,000 videos</div></div>
+      <div class="rank rv rd4" style="border-color:rgba(194,154,64,.11)"><div class="rank-glow" style="background:radial-gradient(circle at 50% 100%,rgba(194,154,64,.09),transparent 70%)"></div><div class="rb rb-leg">Legend</div><div class="rank-icon" style="filter:drop-shadow(0 0 14px rgba(194,154,64,.5))">❋</div><div class="rank-name">Legend</div><div class="rank-desc">You don't follow trends. You create them. ORVIX is your empire.</div><div class="rank-req">2,000+ · 1M+ views</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ SCENE 4 — CREATOR PROOF ═══════════ -->
+<section id="s5" class="scene scene-dark">
+  <div class="inner">
+    <div class="s-tag rv"><div class="st-l"></div>Creator Results</div>
+    <h2 class="sh2 rv rd1">Real creators.<br><em>Real growth.</em></h2>
+
+    <div class="proof-grid">
+      <div class="proof-card rv">
+        <div class="pc-h"><div class="pc-bef"><div class="pc-lbl">Before</div><div class="pc-vb">40K</div></div><div class="pc-arr">→</div><div class="pc-aft"><div class="pc-lbl">After 60 days</div><div class="pc-va">380K</div></div></div>
+        <div class="pc-gr"><div style="font-family:var(--mon);font-size:7px;letter-spacing:.1em;color:var(--jade-l);margin-bottom:5px;text-transform:uppercase;">Followers</div><div class="pc-gr-bar"><div class="pc-gr-fill" style="width:85%"></div></div></div>
+        <div class="pc-q">"I used to spend a full day producing one reel. With ORVIX, my output is 30 videos a week. The viral prediction score called my top 3 performers within a 5% margin."</div>
+        <div class="pc-au"><div class="pc-av" style="background:rgba(170,24,40,.15);color:var(--coral)">AK</div><div><div class="pc-nm">Amir Khalid</div><div class="pc-hd">@amirkreates · 380K</div></div></div>
+      </div>
+      <div class="proof-card rv rd1">
+        <div class="pc-h"><div class="pc-bef"><div class="pc-lbl">Before</div><div class="pc-vb">80K</div></div><div class="pc-arr">→</div><div class="pc-aft"><div class="pc-lbl">After 45 days</div><div class="pc-va">510K</div></div></div>
+        <div class="pc-gr"><div style="font-family:var(--mon);font-size:7px;letter-spacing:.1em;color:var(--jade-l);margin-bottom:5px;text-transform:uppercase;">Followers</div><div class="pc-gr-bar"><div class="pc-gr-fill" style="width:92%"></div></div></div>
+        <div class="pc-q">"The trend scanner is worth the subscription 10× over. I see what's going to blow up 48 hours before it happens. That edge is everything in this game."</div>
+        <div class="pc-au"><div class="pc-av" style="background:rgba(194,154,64,.12);color:var(--gold)">SL</div><div><div class="pc-nm">Sofia Laurent</div><div class="pc-hd">@sofialcreates · 510K</div></div></div>
+      </div>
+      <div class="proof-card rv rd2">
+        <div class="pc-h"><div class="pc-bef"><div class="pc-lbl">Before</div><div class="pc-vb">40h/wk</div></div><div class="pc-arr">→</div><div class="pc-aft"><div class="pc-lbl">After ORVIX</div><div class="pc-va">8h/wk</div></div></div>
+        <div class="pc-gr"><div style="font-family:var(--mon);font-size:7px;letter-spacing:.1em;color:var(--jade-l);margin-bottom:5px;text-transform:uppercase;">Agency Time Saved</div><div class="pc-gr-bar"><div class="pc-gr-fill" style="width:80%"></div></div></div>
+        <div class="pc-q">"Our agency manages 14 creator accounts from one ORVIX workspace. The automation alone saves 40 hours per week. The ROI is genuinely absurd."</div>
+        <div class="pc-au"><div class="pc-av" style="background:rgba(20,96,64,.15);color:var(--jade-l)">DM</div><div><div class="pc-nm">Dev Mehta</div><div class="pc-hd">CreatorStack Agency</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ SCENE 5 — PRICING ═══════════ -->
+<section id="s6" class="scene">
+  <div class="inner">
+    <div style="text-align:center;max-width:560px;margin:0 auto 64px;" class="rv">
+      <div class="s-tag" style="justify-content:center"><div class="st-l"></div>Creator Power Levels<div class="st-l"></div></div>
+      <h2 class="sh2" style="margin-bottom:16px;">Free to start.<br><em>Built to scale.</em></h2>
+      <p style="font-size:13px;color:var(--fog);line-height:1.75;">Begin at zero. Your creative ambition determines when you grow.</p>
+    </div>
+    <div class="plans-grid rv rd1">
+      <div class="plan">
+        <div class="plan-tier">Free Forever</div>
+        <div class="plan-price"><sup>$</sup>0</div>
+        <div class="plan-note">Starter credits included</div>
+        <div class="plan-badge pb-f">Always Free</div>
+        <div class="plan-hook">Enough to fall in love with ORVIX. Enough to go viral. Enough to realize you need more.</div>
+        <ul class="plan-feats">
+          <li class="pf"><div class="pfc pfc-on"></div>10 AI video generations/month</li>
+          <li class="pf"><div class="pfc pfc-on"></div>720p HD export (ORVIX watermark)</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Auto captions (3 languages)</li>
+          <li class="pf"><div class="pfc pfc-on"></div>3 AI voice presets</li>
+          <li class="pf"><div class="pfc pfc-off"></div>No voice cloning</li>
+          <li class="pf"><div class="pfc pfc-off"></div>No trend scanner</li>
+        </ul>
+        <button class="plan-btn pb-line">Start Free — No Card</button>
+      </div>
+      <div class="plan plan-star">
+        <div class="plan-tier">Pro Creator</div>
+        <div class="plan-price"><sup>$</sup>9<sub>.99/mo</sub></div>
+        <div class="plan-note">2,000 credits/month</div>
+        <div class="plan-badge pb-p">Maximum Value</div>
+        <div class="plan-hook">Built for irresistibility. Credits designed to be finite — because creation should feel earned, not unlimited.</div>
+        <ul class="plan-feats">
+          <li class="pf"><div class="pfc pfc-on"></div>2,000 AI credits/month</li>
+          <li class="pf"><div class="pfc pfc-on"></div>HD export, no watermark</li>
+          <li class="pf"><div class="pfc pfc-on"></div>500+ AI voices + voice clone</li>
+          <li class="pf"><div class="pfc pfc-on"></div>All 6 platform publishing</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Full viral prediction engine</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Trend scanner + AI hooks</li>
+        </ul>
+        <button class="plan-btn pb-fill">Start Pro — $9.99/mo</button>
+      </div>
+      <div class="plan">
+        <div class="plan-tier">Elite Studio</div>
+        <div class="plan-price"><sup>$</sup>49<sub>/mo</sub></div>
+        <div class="plan-note">Large credit pool + rollover</div>
+        <div class="plan-badge pb-e">Agency Grade</div>
+        <div class="plan-hook">For creators running an empire. White-label. Multi-workspace. Unstoppable at scale.</div>
+        <ul class="plan-feats">
+          <li class="pf"><div class="pfc pfc-on"></div>Large monthly credit pool</li>
+          <li class="pf"><div class="pfc pfc-on"></div>4K ultra export + white-label</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Multi-brand workspace</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Full team collaboration</li>
+          <li class="pf"><div class="pfc pfc-on"></div>API access</li>
+          <li class="pf"><div class="pfc pfc-on"></div>Priority GPU rendering</li>
+        </ul>
+        <button class="plan-btn pb-line">Join Elite Waitlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-sec" id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-line"></div>
+  <div class="cta-inner">
+    <div class="cta-tag rv">The Future of Creation Is Now Open</div>
+    <h2 class="cta-h2 rv rd1">Enter free.<br><em>Scale forever.</em></h2>
+    <p class="cta-body rv rd2">Join 18,000+ creators already building inside ORVIX. No credit card. Free plan is permanent.</p>
+    <div class="cta-form rv rd3">
+      <input type="email" class="cta-inp" placeholder="your@email.com">
+      <button class="btn-big" style="flex-shrink:0;font-size:10px;padding:14px 28px;">Begin Free</button>
+    </div>
+    <div class="cta-note rv rd4">Free plan permanent · Pro launching soon · No spam, ever</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-g">
+    <div><span class="ft-br">ORVIX</span><p class="ft-de">The operating system for viral content creation. One living universe. Infinite reach.</p></div>
+    <div><div class="ft-ct">Platform</div><ul class="ft-li"><li><a href="#">AI Studio</a></li><li><a href="#">Timeline Editor</a></li><li><a href="#">Analytics</a></li><li><a href="#">Auto Publish</a></li><li><a href="#">Marketplace</a></li></ul></div>
+    <div><div class="ft-ct">Company</div><ul class="ft-li"><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+    <div><div class="ft-ct">Legal</div><ul class="ft-li"><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">GDPR</a></li><li><a href="#">API Docs</a></li></ul></div>
+  </div>
+  <div class="ft-bot"><span class="ft-cp">© 2026 ORVIX, Inc. All rights reserved.</span><span class="ft-tg">Built for creators who refuse to slow down.</span></div>
+</footer>
+
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   ORVIX v5 — COMPLETE LIVING SYSTEMS ENGINE
+═══════════════════════════════════════════════════════ */
+
+// ── CURSOR ──────────────────────────────────────────
+const $c=document.getElementById('cur'),
+      $r=document.getElementById('cur-r'),
+      $g=document.getElementById('cur-glow');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,gx=mx,gy=my;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  $c.style.left=mx+'px';$c.style.top=my+'px';
+});
+(function tick(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  gx+=(mx-gx)*.06;gy+=(my-gy)*.06;
+  $r.style.left=rx+'px';$r.style.top=ry+'px';
+  $g.style.left=gx+'px';$g.style.top=gy+'px';
+  requestAnimationFrame(tick);
+})();
+
+// ── BOOT SEQUENCE ────────────────────────────────────
+const bootLines=[
+  {t:'Initializing ORVIX AI Engine…',d:400},
+  {t:'Connecting to Claude AI (claude-sonnet-4-20250514)…',d:700},
+  {t:'Loading viral prediction models…',d:500},
+  {t:'Syncing trend data — TikTok, IG, YouTube…',d:600},
+  {t:'Calibrating voice synthesis engine…',d:450},
+  {t:'Activating creator universe — 14,847 online…',d:500},
+  {t:'WebGL environment loaded',d:300},
+  {t:'ORVIX ready. Enter the universe.',d:200,gold:true},
+];
+
+const blWrap=document.getElementById('boot-lines');
+const bbar=document.getElementById('bbar');
+let bTotal=bootLines.reduce((a,b)=>a+b.d,0),bElapsed=0,bDone=false;
+
+async function runBoot(){
+  for(const line of bootLines){
+    await new Promise(r=>setTimeout(r,line.d));
+    const el=document.createElement('div');
+    el.className='boot-line';
+    el.style.animationDelay='0s';
+    el.style.color=line.gold?'var(--gold)':'';
+    if(line.gold){
+      el.innerHTML=`<span class="bl-check">✓</span>${line.t}`;
+    } else {
+      el.innerHTML=`<span class="bl-spinner"></span>${line.t}`;
+      setTimeout(()=>{
+        el.querySelector('.bl-spinner')&&(el.querySelector('.bl-spinner').outerHTML=`<span class="bl-check">✓</span>`);
+      },line.d*0.7+200);
+    }
+    blWrap.appendChild(el);
+    bElapsed+=line.d;
+    bbar.style.width=(bElapsed/bTotal*100)+'%';
+  }
+  await new Promise(r=>setTimeout(r,800));
+  document.getElementById('boot').classList.add('done');
+  setTimeout(()=>{document.getElementById('boot').style.display='none';bDone=true;},1300);
+  // Show panels
+  setTimeout(showPanels,1600);
+}
+runBoot();
+
+function showPanels(){
+  ['p-main','p-ai','p-trend','p-notif'].forEach((id,i)=>{
+    setTimeout(()=>{
+      const el=document.getElementById(id);
+      if(el)el.classList.add('vis');
+    },i*150);
+  });
+}
+
+// ── WebGL VOLUMETRIC PARTICLE UNIVERSE ────────────────
+const wc=document.getElementById('wc');
+const gl=wc.getContext('webgl');
+let W=wc.width=innerWidth,H=wc.height=innerHeight;
+window.addEventListener('resize',()=>{W=wc.width=innerWidth;H=wc.height=innerHeight;if(gl)gl.viewport(0,0,W,H);});
+
+// Mouse influence on particles
+let glMx=0.5,glMy=0.5;
+document.addEventListener('mousemove',e=>{glMx=e.clientX/W;glMy=e.clientY/H;});
+
+if(gl){
+  const vs=`
+    attribute vec2 a;
+    uniform float t;
+    uniform vec2 res;
+    uniform vec2 mouse;
+    uniform float scroll;
+    varying float v;
+    varying float dist;
+    
+    void main(){
+      float id=fract(sin(a.x*127.1+a.y*311.7)*43758.5);
+      float spd=0.3+id*0.4;
+      float rx=sin(t*spd+a.x*2.1+id*6.28)*0.04;
+      float ry=cos(t*spd*.8+a.y*1.9+id*3.14)*0.04;
+      
+      vec2 p=a+vec2(rx,ry);
+      
+      // Mouse repulsion (subtle)
+      vec2 mpos=vec2(mouse.x*res.x,mouse.y*res.y);
+      vec2 toMouse=mpos-p;
+      float d=length(toMouse);
+      if(d<120.0){
+        float force=(120.0-d)/120.0*0.018;
+        p-=normalize(toMouse)*force;
+      }
+      
+      gl_Position=vec4(p.x/res.x*2.-1.,(1.-p.y/res.y)*2.-1.,0.,1.);
+      float ps=id*2.5+0.5+sin(t*0.5+id*6.28)*0.8;
+      gl_PointSize=ps;
+      v=id;
+      dist=d;
+    }
+  `;
+  const fs=`
+    precision mediump float;
+    varying float v;
+    varying float dist;
+    uniform float t;
+    
+    void main(){
+      float alpha=0.6+0.4*sin(t*0.4+v*6.28);
+      if(dist<120.0)alpha*=mix(1.4,1.0,dist/120.0);
+      
+      vec3 col=v>.72?vec3(.76,.60,.25):
+               v>.45?vec3(.67,.10,.16):
+               v>.2?vec3(.12,.12,.20):
+               vec3(.08,.08,.16);
+      
+      float d=length(gl_PointCoord-.5);
+      if(d>.5)discard;
+      float soft=1.-smoothstep(.35,.5,d);
+      gl_FragColor=vec4(col,alpha*soft*.3);
+    }
+  `;
+  
+  const mkShader=(src,type)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;};
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mkShader(vs,gl.VERTEX_SHADER));
+  gl.attachShader(prog,mkShader(fs,gl.FRAGMENT_SHADER));
+  gl.linkProgram(prog);gl.useProgram(prog);
+  
+  const N=800;
+  const pts=new Float32Array(N*2);
+  for(let i=0;i<N;i++){pts[i*2]=Math.random()*W;pts[i*2+1]=Math.random()*H;}
+  
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,pts,gl.STATIC_DRAW);
+  
+  const aL=gl.getAttribLocation(prog,'a');
+  const tL=gl.getUniformLocation(prog,'t');
+  const rL=gl.getUniformLocation(prog,'res');
+  const mL=gl.getUniformLocation(prog,'mouse');
+  
+  gl.enableVertexAttribArray(aL);
+  gl.vertexAttribPointer(aL,2,gl.FLOAT,false,0,0);
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+  
+  let t0=performance.now();
+  (function raf(){
+    const t=(performance.now()-t0)/1000;
+    gl.viewport(0,0,W,H);gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform1f(tL,t);gl.uniform2f(rL,W,H);gl.uniform2f(mL,glMx,glMy);
+    gl.drawArrays(gl.POINTS,0,N);
+    requestAnimationFrame(raf);
+  })();
+}
+
+// ── WAVEFORM ─────────────────────────────────────────
+const wfEl=document.getElementById('wfbar');
+const WFN=80;
+for(let i=0;i<WFN;i++){const b=document.createElement('div');b.className='wfb';wfEl.appendChild(b);}
+const wfBars=[...wfEl.querySelectorAll('.wfb')];
+(function wfTick(){
+  wfBars.forEach((b,i)=>{
+    const h=1.5+Math.sin(Date.now()/350+i*.38)*1.2+Math.random()*.6;
+    b.style.height=h+'px';
+  });
+  requestAnimationFrame(wfTick);
+})();
+
+// ── DRAGGABLE PANELS ─────────────────────────────────
+document.querySelectorAll('.fp').forEach(panel=>{
+  const bar=panel.querySelector('.fp-bar');
+  let drag=false,ox=0,oy=0;
+  bar.addEventListener('mousedown',e=>{
+    drag=true;
+    const rect=panel.getBoundingClientRect();
+    ox=e.clientX-rect.left;oy=e.clientY-rect.top;
+    panel.classList.add('dragging');
+    document.body.classList.add('cursor-drag');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!drag)return;
+    let nx=e.clientX-ox,ny=e.clientY-oy;
+    nx=Math.max(0,Math.min(innerWidth-panel.offsetWidth,nx));
+    ny=Math.max(58,Math.min(innerHeight-panel.offsetHeight,ny));
+    panel.style.cssText+=`;position:fixed!important;left:${nx}px!important;top:${ny}px!important;right:auto!important;bottom:auto!important;`;
+  });
+  document.addEventListener('mouseup',()=>{
+    if(drag){drag=false;panel.classList.remove('dragging');document.body.classList.remove('cursor-drag');}
+  });
+});
+
+// ── LIVE RENDER PROGRESS ──────────────────────────────
+let pct=73;
+const rsPct=document.getElementById('rspct'),rsFill=document.getElementById('rsfill');
+(function renderTick(){
+  pct=pct>=99?Math.random()*15:pct+(Math.random()*.55);
+  const v=Math.round(pct);
+  if(rsPct)rsPct.textContent=v+'%';
+  if(rsFill)rsFill.style.width=v+'%';
+  setTimeout(renderTick,280+Math.random()*180);
+})();
+
+// ── LIVE CREATOR COUNT ────────────────────────────────
+let cCount=14847;
+const hCnt=document.getElementById('hero-cnt'),navCnt=document.getElementById('nav-cnt');
+(function cntTick(){
+  cCount+=Math.round((Math.random()-.3)*4);
+  cCount=Math.max(14500,Math.min(15400,cCount));
+  if(hCnt)hCnt.textContent=cCount.toLocaleString();
+  if(navCnt)navCnt.textContent=cCount.toLocaleString();
+  setTimeout(cntTick,2200+Math.random()*1800);
+})();
+
+// ── METRIC UPDATES ────────────────────────────────────
+const views=['3.1M','3.2M','3.3M','3.0M','3.4M'],pubs=[67,68,69,70,71];
+let mI=0;
+const mV=document.getElementById('m-views'),mP=document.getElementById('m-pub');
+(function metTick(){
+  mI=(mI+1)%views.length;
+  [mV,mP].forEach((el,i)=>{
+    if(!el)return;
+    el.style.transition='color .3s';el.style.color='var(--gold)';
+    el.textContent=i?pubs[mI]:views[mI];
+    setTimeout(()=>el.style.color='var(--ivory)',500);
+  });
+  setTimeout(metTick,6000+Math.random()*4000);
+})();
+
+// ── TRENDS ────────────────────────────────────────────
+const trendData=[
+  ['AI Productivity','14.2M','HOT'],['Passive Income AI','9.8M','↑'],
+  ['AI Agents 2025','6.1M','↑'],['ChatGPT Prompts','4.8M','NEW'],
+  ['Digital Products','3.9M','↑'],['AI Side Hustle','8.4M','HOT'],
+  ['Automation Tools','5.2M','↑'],['AI Video Editing','7.1M','↑'],
+];
+let tI=0;
+const tBody=document.getElementById('trend-body');
+function renderTrends(){
+  if(!tBody)return;
+  tBody.innerHTML='';
+  for(let i=0;i<4;i++){
+    const d=trendData[(tI+i)%trendData.length];
+    tBody.innerHTML+=`<div class="tr-row"><div class="tr-n">0${i+1}</div><div class="tr-i"><div class="tr-nm">${d[0]}</div><div class="tr-v">${d[1]} views</div></div><div class="tr-b">${d[2]}</div></div>`;
+  }
+}
+renderTrends();
+setInterval(()=>{tI=(tI+1)%trendData.length;renderTrends();},4200);
+
+// ── NOTIFICATIONS ─────────────────────────────────────
+const notifData=[
+  {ic:'▶',bg:'rgba(20,96,64,.2)',co:'#1a8050',ti:'Video Published',bo:'"AI Tools for 2025" — 14.2K views in 1hr'},
+  {ic:'⚡',bg:'rgba(194,154,64,.15)',co:'var(--gold)',ti:'Viral Score Alert',bo:'Your latest reel scored 97 — top 2% today'},
+  {ic:'🔥',bg:'rgba(170,24,40,.15)',co:'var(--ember)',ti:'Streak Milestone',bo:'14-day streak! +250 bonus credits unlocked'},
+  {ic:'◈',bg:'rgba(80,80,140,.15)',co:'#8080cc',ti:'Trend Detected',bo:'"AI passive income" — 840K searches in 24h'},
+  {ic:'✦',bg:'rgba(20,96,64,.14)',co:'#1a8050',ti:'Render Complete',bo:'"5 AI Tools" ready — HD, captions, voice clone'},
+  {ic:'↑',bg:'rgba(194,154,64,.12)',co:'var(--gold)',ti:'Follower Surge',bo:'+1,240 followers in the last 2 hours'},
+];
+
+let nI=0;
+const nBody=document.getElementById('notif-body');
+function addNotif(){
+  if(!nBody)return;
+  const n=notifData[nI%notifData.length];nI++;
+  const el=document.createElement('div');el.className='ni';
+  el.innerHTML=`<div class="ni-ic" style="background:${n.bg};color:${n.co}">${n.ic}</div><div><div class="ni-ti">${n.ti}</div><div class="ni-bo">${n.bo}</div><div class="ni-tm">Just now</div></div>`;
+  nBody.insertBefore(el,nBody.firstChild);
+  if(nBody.children.length>3)nBody.removeChild(nBody.lastChild);
+}
+addNotif();addNotif();
+setInterval(addNotif,5500+Math.random()*4000);
+
+// ── HUMAN CHAOS: occasional render hiccup ────────────
+setTimeout(()=>{
+  const rs=document.querySelector('.rs');
+  if(!rs)return;
+  const err=document.createElement('div');
+  err.style.cssText='font-family:var(--mon);font-size:8px;color:var(--coral);margin-top:6px;padding:4px 8px;background:rgba(204,56,16,.07);border-radius:3px;border:1px solid rgba(204,56,16,.14);animation:nslide .3s ease;';
+  err.textContent='⚠ Render re-queued — voice clone retrying (0.8s)';
+  rs.appendChild(err);
+  setTimeout(()=>{err&&err.remove();},4500);
+},11000);
+
+// ── AI AMBIENT THOUGHTS ───────────────────────────────
+const aiThoughts=[
+  'Scanning trending hooks in your niche right now…',
+  '"AI tools" content surging 340% this week — ideal window',
+  'Peak posting: 6:15 PM based on your audience data',
+  'Competitor gap detected: "AI passive income" — low competition',
+  'Your 14-day streak earns 1.5× daily bonus credits',
+  'Generating 3 viral hook variations for your next video…',
+  'Trend alert: "AI agents" +82% searches in 48h',
+];
+let atI=0;
+const atEl=document.getElementById('ai-ambient-txt'),atWrap=document.querySelector('.ai-ambient-wrap');
+setTimeout(()=>{
+  if(atWrap){atWrap.style.opacity='1';}
+  setInterval(()=>{
+    atI=(atI+1)%aiThoughts.length;
+    if(atEl){atEl.style.opacity='0';atEl.style.transition='opacity .35s';setTimeout(()=>{atEl.textContent=aiThoughts[atI];atEl.style.opacity='1';},350);}
+  },5200);
+},5500);
+
+// ── CREATOR FEED ──────────────────────────────────────
+const creatorFeed=[
+  {n:'@techpunk',ni:'AI Tools',vs:97,g:'linear-gradient(160deg,#1c0a10,#3a0a18)',v:'2.1M'},
+  {n:'@hustle.ai',ni:'Side Hustle',vs:94,g:'linear-gradient(160deg,#0a0c1c,#0a1438)',v:'1.8M'},
+  {n:'@viralov',ni:'Productivity',vs:91,g:'linear-gradient(160deg,#0a180a,#0a2810)',v:'980K'},
+  {n:'@creatorx',ni:'Finance',vs:89,g:'linear-gradient(160deg,#1a0e0a,#281800)',v:'740K'},
+  {n:'@ailife',ni:'Lifestyle',vs:87,g:'linear-gradient(160deg,#160a1e,#2a0a3a)',v:'620K'},
+  {n:'@buildfast',ni:'SaaS',vs:85,g:'linear-gradient(160deg,#0a161e,#0a2030)',v:'490K'},
+  {n:'@richday',ni:'Business',vs:83,g:'linear-gradient(160deg,#1e0a0a,#3a0a0a)',v:'380K'},
+  {n:'@aiagency',ni:'Agency',vs:81,g:'linear-gradient(160deg,#0e0e1c,#1a1a30)',v:'290K'},
+];
+const feed=document.getElementById('creator-feed');
+if(feed){
+  creatorFeed.forEach(c=>{
+    const el=document.createElement('div');el.className='cc';
+    el.innerHTML=`<div class="cc-img"><div style="position:absolute;inset:0;background:${c.g}"></div><div class="cc-badge"><span class="ld" style="width:4px;height:4px"></span>LIVE</div><div class="cc-vs">${c.vs}</div></div><div class="cc-b"><div class="cc-n">${c.n}</div><div class="cc-v">${c.v} views · ${c.ni}</div><div class="cc-bar"><div class="cc-bar-fill" style="width:${c.vs}%"></div></div></div>`;
+    feed.appendChild(el);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+//  WOW MOMENT — LIVE AI GENERATION (Real Claude API)
+// ══════════════════════════════════════════════════════
+let generating=false;
+
+async function runGeneration(){
+  const inp=document.getElementById('gen-inp');
+  const btn=document.getElementById('gen-btn');
+  const out=document.getElementById('term-output');
+  const prompt=document.getElementById('term-prompt');
+  const scoreBox=document.getElementById('score-reveal');
+  
+  const topic=inp.value.trim();
+  if(!topic||generating)return;
+  generating=true;
+  
+  btn.disabled=true;btn.textContent='Generating…';btn.classList.add('loading');
+  inp.disabled=true;
+  scoreBox.style.display='none';scoreBox.classList.remove('vis');
+  
+  // Reset output
+  out.innerHTML='';
+  prompt.style.display='flex';prompt.textContent=topic;
+  
+  const addLine=(text,cls='',delay=0)=>{
+    return new Promise(r=>setTimeout(()=>{
+      const l=document.createElement('div');l.className=`to-line ${cls}`;l.textContent=text;
+      out.appendChild(l);out.scrollTop=out.scrollHeight;r();
+    },delay));
+  };
+  
+  await addLine('// Initializing ORVIX AI Engine…','gold');
+  await addLine(`// Topic received: "${topic}"`,''  ,200);
+  await addLine('// Routing to Claude Sonnet…',''   ,400);
+  await addLine('',''                               ,600);
+  await addLine('Analyzing viral potential…','green',700);
+  await addLine('Scanning 48K competitor videos…','' ,900);
+  await addLine('Identifying best hook frameworks…','',1100);
+  await addLine('',''                               ,1300);
+  await addLine('// Writing script…','gold'         ,1400);
+
+  let fullScript='';
+  let hookScore=0,retScore=0,viralScore=0;
+
+  try {
+    // Call Anthropic API via fetch — REAL CLAUDE GENERATION
+    const response = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`You are ORVIX, an elite viral content AI. Generate a viral short-form video script for TikTok/Instagram Reels.
+
+Return ONLY a JSON object with no markdown:
+{
+  "hook": "the opening 3-second line (make it stop-the-scroll powerful)",
+  "script": "the full 60-second script in natural spoken language",
+  "cta": "the final call-to-action line",
+  "hookScore": 85-99,
+  "retentionScore": 80-97,
+  "viralScore": 82-98,
+  "estimatedReach": "180K-420K"
+}`,
+        messages:[{role:'user',content:`Create a viral reel script for: "${topic}"`}]
+      })
+    });
+    
+    if(response.ok){
+      const data=await response.json();
+      const text=data.content?.[0]?.text||'{}';
+      let parsed;
+      try{parsed=JSON.parse(text.replace(/```json|```/g,'').trim());}catch{parsed=null;}
+      
+      if(parsed){
+        hookScore=parsed.hookScore||Math.floor(82+Math.random()*15);
+        retScore=parsed.retentionScore||Math.floor(80+Math.random()*16);
+        viralScore=parsed.viralScore||Math.floor(83+Math.random()*14);
+        
+        // Stream the hook
+        await addLine('','',200);
+        await addLine('HOOK:','gold',300);
+        const hookChars=[...parsed.hook];
+        let hookLine=document.createElement('div');hookLine.className='to-line white';out.appendChild(hookLine);
+        for(let i=0;i<hookChars.length;i++){
+          await new Promise(r=>setTimeout(r,22+Math.random()*18));
+          hookLine.textContent+=hookChars[i];out.scrollTop=out.scrollHeight;
+        }
+        
+        // Stream the script
+        await addLine('','',200);
+        await addLine('SCRIPT:','gold',300);
+        const sentences=parsed.script.split(/(?<=[.!?])\s+/).slice(0,6);
+        for(const s of sentences){
+          await new Promise(r=>setTimeout(r,180));
+          const line=document.createElement('div');line.className='to-line';line.textContent=s;
+          out.appendChild(line);out.scrollTop=out.scrollHeight;
+        }
+        
+        // CTA
+        await addLine('','',200);
+        await addLine('CTA: '+parsed.cta,'green',200);
+        fullScript=parsed.script;
+        
+      } else {
+        // Fallback stream
+        await fallbackStream(topic,out);
+        hookScore=Math.floor(82+Math.random()*15);
+        retScore=Math.floor(80+Math.random()*16);
+        viralScore=Math.floor(83+Math.random()*14);
+      }
+    } else {
+      await fallbackStream(topic,out);
+      hookScore=Math.floor(82+Math.random()*15);
+      retScore=Math.floor(80+Math.random()*16);
+      viralScore=Math.floor(83+Math.random()*14);
+    }
+  } catch(e){
+    await fallbackStream(topic,out);
+    hookScore=Math.floor(82+Math.random()*15);
+    retScore=Math.floor(80+Math.random()*16);
+    viralScore=Math.floor(83+Math.random()*14);
+  }
+  
+  // Score reveal
+  await new Promise(r=>setTimeout(r,600));
+  await addLine('','',100);
+  await addLine('// Viral analysis complete','gold',100);
+  
+  scoreBox.style.display='block';
+  setTimeout(()=>scoreBox.classList.add('vis'),50);
+  
+  document.getElementById('sr-score').textContent=viralScore;
+  
+  // Animate bars
+  setTimeout(()=>{
+    const bH=document.getElementById('bar-hook'),bR=document.getElementById('bar-ret'),bRe=document.getElementById('bar-reach');
+    const vH=document.getElementById('val-hook'),vR=document.getElementById('val-ret'),vRe=document.getElementById('val-reach');
+    if(bH){bH.style.width=hookScore+'%';vH.textContent=hookScore;}
+    if(bR){bR.style.width=retScore+'%';vR.textContent=retScore;}
+    if(bRe){const reach=Math.floor(viralScore*4200);bRe.style.width=Math.min(99,viralScore)+'%';vRe.textContent=reach>1000?(reach/1000).toFixed(0)+'K':reach;}
+  },300);
+  
+  btn.disabled=false;btn.textContent='Generate Again';btn.classList.remove('loading');
+  inp.disabled=false;generating=false;
+}
+
+async function fallbackStream(topic,out){
+  const hooks=[
+    `Wait — before you hire anyone else, watch this about ${topic}.`,
+    `The ${topic} nobody's talking about just changed everything.`,
+    `I tested ${topic} for 30 days. Here's the uncomfortable truth.`,
+    `Stop scrolling. ${topic} will be different in 6 months.`,
+  ];
+  const hook=hooks[Math.floor(Math.random()*hooks.length)];
+  
+  const scripts=[
+    `Most people get ${topic} completely wrong. Here's what actually works in 2025. First, you need to understand that the old way is dead. The algorithm rewards one thing above everything else — authenticity combined with value. Second, the creators winning right now are using AI to 10x their output without losing their voice. Third, the distribution strategy matters more than the content itself. If you're not posting at least once a day across three platforms, you're invisible.`,
+    `Here's the truth about ${topic} that nobody tells you at the beginning. The platform favors early movers, and right now we're still in the golden window. But the window is closing fast. The creators who figure this out in the next 90 days will have an enormous advantage. Here's exactly how to do it — starting today with zero budget.`,
+  ];
+  
+  const addLine=(text,cls='',delay=0)=>new Promise(r=>setTimeout(()=>{
+    const l=document.createElement('div');l.className=`to-line ${cls}`;l.textContent=text;
+    out.appendChild(l);out.scrollTop=out.scrollHeight;r();
+  },delay));
+  
+  await addLine('','',100);
+  await addLine('HOOK:','gold',200);
+  
+  const hChars=[...hook];
+  const hLine=document.createElement('div');hLine.className='to-line white';out.appendChild(hLine);
+  for(let i=0;i<hChars.length;i++){
+    await new Promise(r=>setTimeout(r,20+Math.random()*15));
+    hLine.textContent+=hChars[i];out.scrollTop=out.scrollHeight;
+  }
+  
+  await addLine('','',200);
+  await addLine('SCRIPT:','gold',200);
+  const sents=scripts[Math.floor(Math.random()*scripts.length)].split('. ');
+  for(const s of sents.slice(0,5)){
+    await new Promise(r=>setTimeout(r,200));
+    const l=document.createElement('div');l.className='to-line';l.textContent=s+'.';
+    out.appendChild(l);out.scrollTop=out.scrollHeight;
+  }
+  await addLine('','',200);
+  await addLine('CTA: Follow for daily AI creator strategies — I post every single day.','green',200);
+}
+
+// Enter key for generation
+document.getElementById('gen-inp')?.addEventListener('keydown',e=>{if(e.key==='Enter')runGeneration();});
+
+// ── SCROLL REVEAL ─────────────────────────────────────
+const rvEls=document.querySelectorAll('.rv');
+const rvObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+rvEls.forEach(el=>{
+  const r=el.getBoundingClientRect();
+  if(r.top<innerHeight)el.classList.add('vis');
+  else rvObs.observe(el);
+});
+
+// ── STEP INTERACTION ──────────────────────────────────
+function setStep(el){document.querySelectorAll('.fstep').forEach(s=>s.classList.remove('on'));el.classList.add('on');}
+
+// ── MAGNETIC BUTTONS ──────────────────────────────────
+document.querySelectorAll('.btn-big,.pb-fill,.btn-enter,.gen-btn').forEach(b=>{
+  b.addEventListener('mousemove',e=>{
+    const r=b.getBoundingClientRect();
+    b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.1}px,${(e.clientY-r.top-r.height/2)*.1}px)`;
+  });
+  b.addEventListener('mouseleave',()=>b.style.transform='');
+});
+
+// ── NAV ACTIVE ────────────────────────────────────────
+const sectionIds=['s2','s4','s5','s6'];
+const nPills=document.querySelectorAll('.np');
+window.addEventListener('scroll',()=>{
+  const sy=scrollY;
+  sectionIds.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el&&sy>=el.offsetTop-200){nPills.forEach(p=>p.classList.remove('on'));nPills[i]&&nPills[i].classList.add('on');}
+  });
+},{passive:true});
+
+// ── PARALLAX ATMOSPHERE ───────────────────────────────
+window.addEventListener('scroll',()=>{
+  const atmo=document.querySelector('.atmo-txt');
+  if(atmo)atmo.style.transform=`translateY(${scrollY*.1}px)`;
+},{passive:true});
+</script>
+</body>
+</html>
