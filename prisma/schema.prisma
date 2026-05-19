@@ -1,0 +1,606 @@
+// ORVIX — Database Schema
+// PostgreSQL via Supabase + Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ═══════════════════════════════
+// USER & AUTH
+// ═══════════════════════════════
+
+model User {
+  id            String    @id @default(cuid())
+  clerkId       String    @unique
+  email         String    @unique
+  username      String    @unique
+  displayName   String?
+  avatarUrl     String?
+  bio           String?
+  website       String?
+
+  // Plan
+  plan          Plan      @default(FREE)
+  planExpiresAt DateTime?
+  stripeCustomerId String? @unique
+  razorpayCustomerId String?
+
+  // Credits
+  credits       Int       @default(50)
+  creditsUsed   Int       @default(0)
+  bonusCredits  Int       @default(0)
+
+  // Creator stats
+  totalViews    BigInt    @default(0)
+  totalVideos   Int       @default(0)
+  streak        Int       @default(0)
+  streakBest    Int       @default(0)
+  lastActiveAt  DateTime  @default(now())
+  level         Int       @default(1)
+  xp            Int       @default(0)
+
+  // Settings
+  timezone      String    @default("UTC")
+  locale        String    @default("en")
+  onboarded     Boolean   @default(false)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  workspace     Workspace?
+  videos        Video[]
+  scripts       Script[]
+  voiceProfiles VoiceProfile[]
+  socialAccounts SocialAccount[]
+  subscriptions Subscription[]
+  creditTransactions CreditTransaction[]
+  achievements  UserAchievement[]
+  apiKeys       ApiKey[]
+  notifications Notification[]
+  teamMemberships TeamMember[]
+
+  @@map("users")
+}
+
+enum Plan {
+  FREE
+  PRO
+  ELITE
+}
+
+// ═══════════════════════════════
+// WORKSPACE & TEAM
+// ═══════════════════════════════
+
+model Workspace {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  name        String
+  slug        String   @unique
+  logoUrl     String?
+  brandColors Json?
+  whitelabel  Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teams       Team[]
+  brandKits   BrandKit[]
+
+  @@map("workspaces")
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  members     TeamMember[]
+  videos      Video[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String     @id @default(cuid())
+  teamId    String
+  userId    String
+  role      TeamRole   @default(MEMBER)
+  joinedAt  DateTime   @default(now())
+
+  team      Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@map("team_members")
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  EDITOR
+  MEMBER
+  VIEWER
+}
+
+model BrandKit {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+  colors      Json
+  fonts       Json?
+  logoUrl     String?
+  voiceId     String?
+
+  createdAt   DateTime @default(now())
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("brand_kits")
+}
+
+// ═══════════════════════════════
+// VIDEOS
+// ═══════════════════════════════
+
+model Video {
+  id            String      @id @default(cuid())
+  userId        String
+  teamId        String?
+  title         String
+  description   String?
+  prompt        String?
+  scriptId      String?
+
+  // Status
+  status        VideoStatus @default(DRAFT)
+  renderProgress Int        @default(0)
+  errorMessage  String?
+
+  // AI scores
+  viralScore    Float?
+  hookScore     Float?
+  retentionScore Float?
+  estimatedReach BigInt?
+
+  // Video properties
+  duration      Float?
+  aspectRatio   String      @default("9:16")
+  resolution    String      @default("1080p")
+  fps           Int         @default(30)
+
+  // Storage
+  rawUrl        String?
+  processedUrl  String?
+  thumbnailUrl  String?
+  previewUrl    String?
+  fileSize      BigInt?
+
+  // AI generation config
+  voiceProfileId String?
+  musicTrack    String?
+  captionStyle  String?
+  brollStyle    String?
+  transitionStyle String?
+  aiModel       String      @default("gpt-4o")
+
+  // Analytics
+  totalViews    BigInt      @default(0)
+  totalLikes    BigInt      @default(0)
+  totalComments BigInt      @default(0)
+  totalShares   BigInt      @default(0)
+  avgWatchTime  Float?
+  ctr           Float?
+
+  // Metadata
+  tags          String[]
+  niche         String?
+  language      String      @default("en")
+  isPublic      Boolean     @default(false)
+  hasWatermark  Boolean     @default(true)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  publishedAt   DateTime?
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team          Team?       @relation(fields: [teamId], references: [id])
+  script        Script?     @relation(fields: [scriptId], references: [id])
+  voiceProfile  VoiceProfile? @relation(fields: [voiceProfileId], references: [id])
+  publishedPosts PublishedPost[]
+  scenes        VideoScene[]
+  analyticsData VideoAnalytics[]
+  comments      VideoComment[]
+
+  @@map("videos")
+}
+
+enum VideoStatus {
+  DRAFT
+  QUEUED
+  RENDERING
+  PROCESSING
+  READY
+  PUBLISHED
+  FAILED
+  ARCHIVED
+}
+
+model VideoScene {
+  id          String   @id @default(cuid())
+  videoId     String
+  order       Int
+  type        String   // text, broll, transition, intro, outro
+  duration    Float
+  content     String?
+  mediaUrl    String?
+  voiceText   String?
+  captions    Json?
+  effects     Json?
+  transitions Json?
+
+  video       Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@map("video_scenes")
+}
+
+model VideoAnalytics {
+  id          String   @id @default(cuid())
+  videoId     String
+  platform    Platform
+  date        DateTime @db.Date
+  views       BigInt   @default(0)
+  likes       BigInt   @default(0)
+  comments    BigInt   @default(0)
+  shares      BigInt   @default(0)
+  watchTime   Float?
+  ctr         Float?
+  impressions BigInt?
+
+  video       Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([videoId, platform, date])
+  @@map("video_analytics")
+}
+
+model VideoComment {
+  id        String   @id @default(cuid())
+  videoId   String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@map("video_comments")
+}
+
+// ═══════════════════════════════
+// SCRIPTS
+// ═══════════════════════════════
+
+model Script {
+  id          String      @id @default(cuid())
+  userId      String
+  title       String
+  hook        String?
+  body        String
+  cta         String?
+  platform    Platform?
+  niche       String?
+  framework   String?
+  wordCount   Int?
+  estimatedDuration Float?
+  viralScore  Float?
+  hookScore   Float?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos      Video[]
+
+  @@map("scripts")
+}
+
+// ═══════════════════════════════
+// VOICE PROFILES
+// ═══════════════════════════════
+
+model VoiceProfile {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  type        VoiceType @default(PRESET)
+  elevenLabsId String?
+  language    String   @default("en")
+  accent      String?
+  gender      String?
+  age         String?
+  previewUrl  String?
+  isDefault   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos      Video[]
+
+  @@map("voice_profiles")
+}
+
+enum VoiceType {
+  PRESET
+  CLONED
+  CUSTOM
+}
+
+// ═══════════════════════════════
+// SOCIAL ACCOUNTS
+// ═══════════════════════════════
+
+model SocialAccount {
+  id            String   @id @default(cuid())
+  userId        String
+  platform      Platform
+  accountId     String
+  username      String
+  displayName   String?
+  avatarUrl     String?
+  accessToken   String
+  refreshToken  String?
+  tokenExpiry   DateTime?
+  followers     BigInt?
+  isActive      Boolean  @default(true)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  publishedPosts PublishedPost[]
+
+  @@unique([userId, platform, accountId])
+  @@map("social_accounts")
+}
+
+enum Platform {
+  TIKTOK
+  INSTAGRAM
+  YOUTUBE
+  TWITTER
+  LINKEDIN
+  FACEBOOK
+}
+
+model PublishedPost {
+  id              String        @id @default(cuid())
+  videoId         String
+  socialAccountId String
+  platform        Platform
+  externalId      String?
+  status          PublishStatus @default(SCHEDULED)
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  url             String?
+  errorMessage    String?
+  views           BigInt?
+  likes           BigInt?
+
+  createdAt       DateTime      @default(now())
+
+  video           Video         @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  socialAccount   SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+
+  @@map("published_posts")
+}
+
+enum PublishStatus {
+  SCHEDULED
+  PUBLISHING
+  PUBLISHED
+  FAILED
+  CANCELLED
+}
+
+// ═══════════════════════════════
+// BILLING & CREDITS
+// ═══════════════════════════════
+
+model Subscription {
+  id                String             @id @default(cuid())
+  userId            String
+  plan              Plan
+  status            SubscriptionStatus @default(ACTIVE)
+  provider          String             // stripe, razorpay
+  providerId        String             @unique
+  priceId           String?
+  currentPeriodStart DateTime
+  currentPeriodEnd  DateTime
+  cancelAtPeriodEnd Boolean            @default(false)
+  cancelledAt       DateTime?
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  TRIALING
+  PAUSED
+}
+
+model CreditTransaction {
+  id          String          @id @default(cuid())
+  userId      String
+  type        CreditTxType
+  amount      Int             // positive = add, negative = deduct
+  balance     Int             // balance after transaction
+  description String
+  metadata    Json?
+  videoId     String?
+
+  createdAt   DateTime        @default(now())
+
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("credit_transactions")
+}
+
+enum CreditTxType {
+  PURCHASE
+  SUBSCRIPTION_GRANT
+  DAILY_BONUS
+  STREAK_REWARD
+  REFERRAL_BONUS
+  ACHIEVEMENT_REWARD
+  VIDEO_GENERATION
+  VOICE_CLONE
+  HD_EXPORT
+  FOUR_K_EXPORT
+  VIRAL_ANALYSIS
+  SCRIPT_GENERATION
+  REFUND
+}
+
+// ═══════════════════════════════
+// GAMIFICATION
+// ═══════════════════════════════
+
+model Achievement {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String
+  iconUrl     String?
+  xpReward    Int      @default(0)
+  creditReward Int     @default(0)
+  requirement Json
+
+  users       UserAchievement[]
+
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  achievementId String
+  unlockedAt    DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+// ═══════════════════════════════
+// API KEYS
+// ═══════════════════════════════
+
+model ApiKey {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  key         String   @unique
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  permissions String[]
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+// ═══════════════════════════════
+// NOTIFICATIONS
+// ═══════════════════════════════
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String?
+  data      Json?
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  VIDEO_READY
+  VIDEO_PUBLISHED
+  VIDEO_FAILED
+  CREDITS_LOW
+  STREAK_AT_RISK
+  ACHIEVEMENT_UNLOCKED
+  TREND_ALERT
+  SUBSCRIPTION_RENEWAL
+  TEAM_INVITE
+  SYSTEM
+}
+
+// ═══════════════════════════════
+// TRENDS (cached)
+// ═══════════════════════════════
+
+model TrendData {
+  id          String   @id @default(cuid())
+  keyword     String
+  platform    Platform?
+  niche       String?
+  viewCount   BigInt
+  growth      Float
+  viralScore  Float
+  updatedAt   DateTime @updatedAt
+  expiresAt   DateTime
+
+  @@unique([keyword, platform])
+  @@map("trend_data")
+}
+
+// ═══════════════════════════════
+// TEMPLATES / MARKETPLACE
+// ═══════════════════════════════
+
+model Template {
+  id          String   @id @default(cuid())
+  creatorId   String?
+  title       String
+  description String?
+  category    String
+  previewUrl  String?
+  config      Json
+  uses        Int      @default(0)
+  isPublic    Boolean  @default(true)
+  isPremium   Boolean  @default(false)
+  price       Float?
+
+  createdAt   DateTime @default(now())
+
+  @@map("templates")
+}

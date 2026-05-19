@@ -1,0 +1,43 @@
+{
+  "buildCommand": "npx prisma generate && next build",
+  "outputDirectory": ".next",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1", "sfo1", "lhr1"],
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/videos/generate/route.ts": {
+      "maxDuration": 120
+    },
+    "src/app/api/webhooks/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/daily-bonus",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/trend-refresh",
+      "schedule": "0 */2 * * *"
+    },
+    {
+      "path": "/api/cron/streak-check",
+      "schedule": "0 23 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://orvix.io" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+      ]
+    }
+  ]
+}
